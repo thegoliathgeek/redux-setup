@@ -1,26 +1,68 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  decrement,
+  increment,
+  incrementByAmount,
+  decrementByAmount,
+} from "./slices/counter";
+// import styles from "./Counter.module.css";
 
-function App() {
+function Counter() {
+  const dispatch = useDispatch();
+
+  const count = useSelector(
+    (state: {
+      counter: {
+        value: number;
+        secondValue: number;
+      };
+    }) => state.counter.value
+  );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div>
+      <div>
+        <button
+          aria-label="Increment value"
+          onClick={() => dispatch(increment())}
         >
-          Learn React
-        </a>
-      </header>
+          Increment
+        </button>
+        <span>{count}</span>
+        <button
+          aria-label="Decrement value"
+          onClick={() => dispatch(decrement())}
+        >
+          Decrement
+        </button>
+
+        <br />
+
+        <div>
+          <p>Increment By 5</p>
+          <button
+            aria-label="Increment value"
+            onClick={() => dispatch(incrementByAmount(5))}
+          >
+            Increment
+          </button>
+        </div>
+
+        <br />
+
+        <div>
+          <p>Decrement By 5</p>
+          <button
+            aria-label="Increment value"
+            onClick={() => dispatch(decrementByAmount(5))}
+          >
+            Decrement
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
 
-export default App;
+export default Counter;
